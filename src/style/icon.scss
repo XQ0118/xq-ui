@@ -1,0 +1,19 @@
+// 1:disabled状态时禁止点击
+// 2:icon-loading 时旋转
+@import './common/minxin.scss';
+@import './common/animation.scss';
+
+@include b(icon) {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  overflow: hidden;
+  .#{$state-prefix}disabled {
+    cursor: not-allowed;
+    fill: $--color-disabled;
+  }
+  .icon-loading {
+    animation: rotating 2s infinite linear;
+  }
+   
+}
