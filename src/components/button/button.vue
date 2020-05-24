@@ -11,93 +11,87 @@
         'is-right':right,
         'is-centre':centre,
         'is-disabled': buttonDisabled,
+        'is-loading':buttonLoading
       }
     ]"
     :type="nativeType"
   >
-    <!-- <i class="xq-icon-loading" v-if="loading"></i> -->
-    <!-- <i v-if="icon !== '' && !loading" :class="icon"></i> -->
-    <!-- <span :class="[prefixCls + '__loading',type]" v-if="loading"></span> -->
+    <x-icon v-if="icon" :name="icon" :color="realyIconColor" style="margin-right:4px"></x-icon>
     <span v-if="$slots.default">
+      <x-icon v-if="loading" name="loading" :color="loadingColor" style="margin-right:4px"></x-icon>
       <slot></slot>
     </span>
   </button>
-  <!-- <button
-    class="xq-button"
-    @click="handleClick"
-    :disabled="buttonDisabled || loading"
-    :class="[
-      type ? 'xq-button--' + type : '',
-      size ? 'xq-button--' + size : '',
-      {
-        'is-disabled': buttonDisabled,
-        'is-loading': loading,
-        'is-plain': plain,
-        'is-round': round
-      }
-    ]"
-    :type="nativeType"
-  >
-    <i class="xq-icon-loading" v-if="loading"></i>
-    <i v-if="icon !== '' && !loading" :class="icon"></i>
-    
-    <span v-if="$slots.default">
-      <slot></slot>
-    </span>
-  </button>-->
 </template>
 
 <script>
-
-
+import XIcon from "@/components/icon/icon.vue";
 export default {
-  name: 'XButton',
+  name: "XButton",
+  components: { XIcon },
   props: {
     type: {
       type: String,
-      default: 'default'
+      default: "default"
     },
     nativeType: {
       type: String,
-      default: 'submit'
+      default: "submit"
     },
     size: {
       type: String,
-      default: 'default'
+      default: "default"
     },
     icon: {
       type: String,
-      default: ''
+      default: ""
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     },
     plain: Boolean,
     left: Boolean, // 方向
     right: Boolean,
     centre: Boolean,
-    disabled: Boolean,
     round: Boolean,
-    loading: Boolean
-  },
-  data () {
-    return {
+    iconColor: {
+      type: String,
+      default: "#111"
     }
   },
-  mounted () {
-    console.log('class =>', '_2_' + this.type + '--' + this.size)
+  data() {
+    return {};
   },
   computed: {
-    buttonDisabled () {
-      return this.disabled
+    buttonDisabled() {
+      return this.disabled;
     },
-    sizeType () {
-      const list = ['small', 'default', 'large'];
+    buttonLoading() {
+      return this.loading;
+    },
+    sizeType() {
+      const list = ["small", "default", "large"];
       if (list.includes(this.size)) return `size-${this.size}`;
-      return 'size-default';
+      return "size-default";
+    },
+    realyIconColor() {
+      if (this.disabled) return "#bbb";
+      else return this.iconColor;
+    },
+    loadingColor() {
+      if (this.loading) return "#bbb";
+      else return "#bbb";
     }
   },
   methods: {
-    handleClick (evt) {
-      this.$emit('click', evt)
+    handleClick(evt) {
+      this.$emit("click", evt);
     }
   }
-}
+};
 </script>

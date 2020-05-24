@@ -1,0 +1,29 @@
+/* 引入定义的所有变量 */
+@import "./common/var.scss";
+/* 引入所有的函数 */
+@import "./common/minxin.scss";
+
+@include b(message) {
+  position: fixed;
+  display: inline-block;
+  background-color: white;
+  top: 6px;
+  // 上方, 居中
+  left: 50%;
+  padding: 6px 20px;
+  transition: all 0.3s;
+  transform: translateX(-50%);
+  color: red;
+
+  .#{$namespace}-message__closeButton {
+    display: flex;
+    cursor: pointer;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 5px;
+  }
+}
