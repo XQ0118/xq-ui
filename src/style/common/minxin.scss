@@ -1,25 +1,25 @@
-@import "../config/index.scss";
-@import "../common/var.scss";
+@import '../config/index.scss';
+@import '../common/var.scss';
 
 @mixin commonShadow($color) {
-  @if $color== "success" {
+  @if $color== 'success' {
     $color: $--color-success;
   }
 
-  @if $color== "warning" {
+  @if $color== 'warning' {
     $color: $--color-warning;
   }
 
-  @if $color== "danger" {
+  @if $color== 'danger' {
     $color: $--color-danger;
   }
 
-  @if $color== "disabled" {
+  @if $color== 'disabled' {
     cursor: not-allowed;
     $color: $--color-disabled;
   }
 
-  @if $color== "loading" {
+  @if $color== 'loading' {
     $color: $--color-loading;
   }
 
@@ -38,7 +38,8 @@
 
 @mixin b($block) {
   // !global与!defult相对立, 优先与默认编译
-  $B: $namespace + "-" + $block !global;
+  // xq - $block
+  $B: $namespace + '-' + $block !global;
 
   .#{$B} {
     @content;

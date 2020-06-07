@@ -9,7 +9,7 @@ const Message = (options) => {
   let node;
   if (typeof options === "object" && options instanceof Object) {
     node = new MessageConstructor({
-      data: options,
+      propsData: options,
     });
     node.$slots.default = [options.message];
   } else if (typeof options === "string") {

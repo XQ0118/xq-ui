@@ -1,7 +1,7 @@
 /* 引入定义的所有变量 */
-@import "./common/var.scss";
+@import './common/var.scss';
 /* 引入所有的函数 */
-@import "./common/minxin.scss";
+@import './common/minxin.scss';
 
 @include b(message) {
   position: fixed;
@@ -13,7 +13,9 @@
   padding: 6px 20px;
   transition: all 0.3s;
   transform: translateX(-50%);
-  color: red;
+
+  // border
+  @include commonShadow($--color-black);
 
   .#{$namespace}-message__closeButton {
     display: flex;
@@ -25,5 +27,20 @@
     right: 0;
     bottom: 0;
     padding: 0 5px;
+  }
+
+  // animation
+  @at-root {
+    @include commonType(xq-message--);
+
+    .#{namespace}-message--big {
+      padding: 6px 32px 6px 20px;
+    }
+
+    .#{$namespace}-message-fade-enter-active,
+    .#{$namespace}-message-fade-leave-to {
+      opacity: 0;
+      transform: translate(-50%, -100%);
+    }
   }
 }

@@ -1,8 +1,14 @@
 <template>
   <transition name="xq-message-fade" @after-leave="onClose">
-    <div name="xq-message" :style="selfStyle" @mousemove="clearTimer" @mouseleave="startTimer">
+    <div
+      class="xq-message"
+      v-show="visible"
+      :style="selfStyle"
+      @mousemove="clearTimer"
+      @mouseleave="startTimer"
+    >
       <slot>{{ message }}</slot>
-      <i class="xq-message__closeButton" v-if="showClose" @click="onClose">
+      <i class="xq-message__closeButton" v-if="closeButton" @click="onClose">
         <x-icon name="close"></x-icon>
       </i>
     </div>
@@ -14,16 +20,39 @@ import XIcon from "@/components/icon/icon.vue";
 export default {
   name: "message",
   components: { XIcon },
-  props: {},
+  props: {
+    type: {
+      type: String,
+      default: "nomal"
+    },
+    autoClose: {
+      // 是否自动关闭
+      type: Boolean,
+      default: true
+    },
+    duration: {
+      // 关闭的延时
+      type: Number,
+      default: 2000
+    },
+    closeButton: {
+      // 是否要关闭的x
+      type: Boolean,
+      default: false
+    },
+    zIndex: {
+      type: Number,
+      default: 10
+    },
+    verticalOffset: {
+      type: Number,
+      default: 20
+    }
+  },
   data() {
     return {
       message: "",
-      verticalOffset: 20,
-      zIndex: 10,
-      showClose: false,
       visible: false,
-      closeTime: 2000,
-      duration: 1000,
       timer: null
     };
   },
@@ -38,8 +67,7 @@ export default {
   methods: {
     startTimer() {
       console.log("message timer ->");
-
-      if (Math.abs(this.duration) > 0) {
+      if (this.autoClose && Math.abs(this.duration) > 0) {
         this.timer = setTimeout(() => {
           this.onClose();
         }, Math.abs(this.duration));
@@ -50,19 +78,17 @@ export default {
     },
     onClose() {
       this.visible = false;
-      this.$el.remove();
-      this.$destroy(true);
-      // setTimeout(() => {
-      //   this.$el.remove();
-      //   this.$destroy();
-      // }, 300);
+
+      this.timer = setTimeout(() => {
+        this.$el.remove();
+        this.$destroy(true);
+      }, 300);
     },
     keydown(e) {
       if (e.keyCode === 27) {
         // esc关闭消息
-        if (!this.closed) {
-          this.onClose();
-        }
+
+        this.onClose();
       }
     }
   },

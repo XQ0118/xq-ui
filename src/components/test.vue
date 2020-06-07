@@ -70,6 +70,7 @@ export default {
     handleMessage() {
       console.log(this);
       this.$message({
+        closeButton: true,
         message: "一条基本信息"
       });
     }
